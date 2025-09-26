@@ -1,0 +1,41 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Chatbot</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding default-background">
+  <ion-grid fixed="true">
+    <ion-list>
+      <ion-item *ngFor="let msg of messages" lines="none">
+        <div class="chat-bubble" [ngClass]="msg.sender === 'user' ? 'user' : 'bot'">
+          <markdown [data]="msg.text"></markdown>
+        </div>
+      </ion-item>
+
+      <!-- Typing indicator -->
+      <ion-item *ngIf="loading" lines="none">
+        <div class="chat-bubble bot">
+        <span class="typing-dots">
+          <span></span><span></span><span></span>
+        </span> typing...
+        </div>
+      </ion-item>
+    </ion-list>
+  </ion-grid>
+</ion-content>
+
+
+<!-- Footer fixed at the bottom -->
+<ion-footer class="default-background">
+  <ion-grid fixed="true">
+    <ion-item>
+      <ion-input
+        [(ngModel)]="newMessage"
+        placeholder="Type your message..."
+        (keyup.enter)="sendMessage()">
+      </ion-input>
+      <ion-button (click)="sendMessage()" expand="block">Send</ion-button>
+    </ion-item>
+  </ion-grid>
+</ion-footer>
